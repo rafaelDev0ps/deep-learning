@@ -32,8 +32,19 @@ if __name__ == "__main__":
     fetch_housing_data(HOUSING_URL, HOUSING_PATH)
     housing = load_housing_data(HOUSING_PATH)
 
+    ''' Mapa de calor baseado no preço de casas na California '''
+    housing.plot(kind="scatter", x="longitude", y="latitude", alpha=0.4,
+        s=housing["population"]/100, label="population", figsize=(10, 7),
+        c="median_house_value", cmap=plt.get_cmap("jet"), colorbar=True)
+
+    ''' Calculando a correlação das demais variaveis com relação ao preço médio '''
+    correlation = housing.corr()
+    print(correlation["median_house_value"])
+
     # housing.info()
     # housing.hist(bins=50, figsize=(20, 15))
+
+    ''' Habilitando os graficos '''
     # plt.show()
 
     # housing_with_id = housing.reset_index()
